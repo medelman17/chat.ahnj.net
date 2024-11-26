@@ -8,5 +8,5 @@ export async function GET() {
   const nodes = withNestedChildren(elements);
 
   // Return the response as a data stream
-  return Response.json({ nodes });
+  return Response.json({ nodes, elements });
 }
