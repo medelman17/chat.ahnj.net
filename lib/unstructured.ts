@@ -172,3 +172,58 @@ export function hasChildren(
 function parentList(childMap: ChildMap) {
   return Object.keys(childMap);
 }
+
+export function withNestedChildren(elements: UnstructuredElement[]): UnstructuredElementWithChildren[] {
+  // Create a map with all elements converted to UnstructuredElementWithChildren
+  const elementMap = new Map<string, UnstructuredElementWithChildren>();
+  const rootElements: UnstructuredElementWithChildren[] = [];
+  
+  // First pass: create the map of all elements with empty children arrays
+  elements.forEach(element => {
+      elementMap.set(element.element_id, {
+          ...element,
+          children: []
+      });
+  });
+  
+  // Second pass: organize elements into hierarchy
+  elements.forEach(element => {
+      const parentId = element.metadata.parent_id;
+      const elementWithChildren = elementMap.get(element.element_id)!;
+      
+      if (!parentId) {
+          // This is a root element
+          rootElements.push(elementWithChildren);
+      } else {
+          // This element has a parent
+          const parent = elementMap.get(parentId);
+          
+          if (parent) {
+              // Add this element as a child
+              parent.children.push(elementWithChildren);
+          } else {
+              // Parent not found, treat as root element
+              console.warn(`Parent element with ID ${parentId} not found for element ${element.element_id}`);
+              rootElements.push(elementWithChildren);
+          }
+      }
+  });
+  
+  // Helper function to sort children recursively
+  function sortChildrenRecursively(element: UnstructuredElementWithChildren) {
+      // Sort children by their position in the original array
+      element.children.sort((a, b) => {
+          const aIndex = elements.findIndex(e => e.element_id === a.element_id);
+          const bIndex = elements.findIndex(e => e.element_id === b.element_id);
+          return aIndex - bIndex;
+      });
+      
+      // Recursively sort children's children
+      (element.children as UnstructuredElementWithChildren[]).forEach(sortChildrenRecursively);
+  }
+  
+  // Sort all root elements and their children
+  rootElements.forEach(sortChildrenRecursively);
+  
+  return rootElements;
+}
