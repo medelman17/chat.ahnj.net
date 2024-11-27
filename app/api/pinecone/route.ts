@@ -1,4 +1,4 @@
-import { createClient, createIndex } from "@/lib/db/pinecone";
+import { createClient, createIndex } from "@/lib/pinecone";
 
 const pc = createClient();
 
