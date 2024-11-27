@@ -1,4 +1,10 @@
-import {  loadUnstructuredElements, withNestedChildren } from "@/lib/unstructured";
+import {
+  loadUnstructuredElements,
+  withNestedChildren,
+} from "@/lib/unstructured";
+import { ChatOpenAI } from "@langchain/openai";
+import { UnstructuredLoader } from "@langchain/community/document_loaders/fs/unstructured";
+import { Document } from "@langchain/core/documents";
 
 // Set the runtime to edge
 // export const runtime = "edge";
