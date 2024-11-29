@@ -12,7 +12,7 @@ export type Metadata = {
 export const getContext = async (
   message: string,
   namespace: string,
-  maxTokens = 7500,
+  maxTokens = 20000,
   minScore = 0.3,
   getOnlyText = true,
 ): Promise<string | ScoredPineconeRecord[]> => {
@@ -22,7 +22,7 @@ export const getContext = async (
   // console.log(`Embedding: ${embedding}`);
 
   // Retrieve the matches for the embeddings from the specified namespace
-  const matches = await getMatchesFromEmbeddings(embedding, 3, namespace);
+  const matches = await getMatchesFromEmbeddings(embedding, 10, namespace);
 
   // console.log(`Matches: ${matches}`);
 

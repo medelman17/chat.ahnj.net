@@ -5,15 +5,12 @@ import { getContext } from "@/lib/ai/context";
 export async function POST(req: Request) {
   try {
     const { messages } = await req.json();
-    console.log(messages);
 
     // Get the last message
     const lastMessage = messages[messages.length - 1];
 
     // Get the context from the last message
     const context = await getContext(lastMessage.content, "");
-
-    console.log(context);
 
     const prompt = [
       {
@@ -38,7 +35,7 @@ export async function POST(req: Request) {
 
     // Ask OpenAI for a streaming chat completion given the prompt
     const response = await streamText({
-      model: openai("gpt-4o-mini"),
+      model: openai("gpt-4o"),
       messages: [
         ...prompt,
         ...messages.filter((message: Message) => message.role === "user"),

@@ -46,11 +46,11 @@ export default function MunicipalCodeChat() {
   const formRef = useRef<HTMLFormElement>(null);
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="w-full max-w-2xl mx-auto flex flex-col h-full flex-grow">
       <CardHeader>
-        <CardTitle>Municipal Code Chatbot</CardTitle>
+        <CardTitle>AHNJ Municipal Code Chatbot</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex-grow overflow-y-auto">
         <ErrorBoundary fallback={error ? <ErrorFallback error={error} /> : null}>
           <ChatMessages messages={messages} />
         </ErrorBoundary>
