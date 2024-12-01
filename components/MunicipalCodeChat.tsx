@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
-import ErrorBoundary from "./ErrorBoundary";
+// import ErrorBoundary from "./ErrorBoundary";
 
 interface ChatMessagesProps {
   messages: Message[];
@@ -27,19 +27,19 @@ function ChatMessages({ messages }: ChatMessagesProps) {
   );
 }
 
-interface ErrorFallbackProps {
-  error: Error;
-}
+// interface ErrorFallbackProps {
+//   error: Error;
+// }
 
-function ErrorFallback({ error }: ErrorFallbackProps) {
-  return (
-    <Alert variant="destructive">
-      <AlertCircle className="h-4 w-4" />
-      <AlertTitle>Error</AlertTitle>
-      <AlertDescription>{error.message}</AlertDescription>
-    </Alert>
-  );
-}
+// function ErrorFallback({ error }: ErrorFallbackProps) {
+//   return (
+//     <Alert variant="destructive">
+//       <AlertCircle className="h-4 w-4" />
+//       <AlertTitle>Error</AlertTitle>
+//       <AlertDescription>{error.message}</AlertDescription>
+//     </Alert>
+//   );
+// }
 
 export default function MunicipalCodeChat() {
   const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat();
@@ -51,9 +51,8 @@ export default function MunicipalCodeChat() {
         <CardTitle>AHNJ Municipal Code Chatbot</CardTitle>
       </CardHeader>
       <CardContent className="flex-grow overflow-y-auto">
-        <ErrorBoundary fallback={error ? <ErrorFallback error={error} /> : null}>
-          <ChatMessages messages={messages} />
-        </ErrorBoundary>
+        <ChatMessages messages={messages} />
+        {/* <ErrorBoundary fallback={error ? <ErrorFallback error={error} /> : null}></ErrorBoundary> */}
         {error && (
           <Alert variant="destructive" className="mt-4">
             <AlertCircle className="h-4 w-4" />

@@ -29,6 +29,7 @@
     "@supabase/supabase-js": "2.46.1",
     "@types/react": "npm:types-react@rc",
     "@types/react-dom": "npm:types-react-dom@rc",
+    "@vercel/analytics": "1.4.1",
     "ai": "4.0.3",
     "babel-plugin-react-compiler": "19.0.0-beta-0dec889-20241115",
     "class-variance-authority": "0.7.0",
@@ -43,6 +44,7 @@
     "openai-edge": "1.2.2",
     "react": "19.0.0-rc.1",
     "react-dom": "19.0.0-rc.1",
+    "sonner": "1.7.0",
     "tailwindcss-animate": "1.0.7",
     "zod": "3.23.8"
   },

@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-// import { Inter } from "next/font/google";
-import { Navbar } from "@/components/navbar";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle } from "lucide-react";
-import ErrorBoundary from "@/components/ErrorBoundary";
+import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Analytics } from "@vercel/analytics/react";
 
 import "./globals.css";
 
-// const inter = Inter({ subsets: ["latin"] });
-
 export const metadata: Metadata = {
-  title: "MuniCode Chat",
+  metadataBase: new URL("https://chat.ahnj.net"),
+  title: "ahbai | Atlantic Highlands Boro AI",
   description: "AI-powered chatbot for municipal code inquiries",
+};
+
+export const viewport = {
+  maximumScale: 1, // Disable auto-zoom on mobile Safari
 };
 
 const LIGHT_THEME_COLOR = "hsl(0 0% 100%)";
@@ -35,27 +35,7 @@ const THEME_COLOR_SCRIPT = `\
   updateThemeColor();
 })();`;
 
-function ApiKeyWarning() {
-  if (process.env.OPENAI_API_KEY) return null;
-
-  return (
-    <Alert variant="destructive" className="m-4">
-      <AlertCircle className="h-4 w-4" />
-      <AlertTitle>Configuration Error</AlertTitle>
-      <AlertDescription>
-        The OPENAI_API_KEY environment variable is missing. The chatbot will not
-        function correctly. Please set the API key in your environment
-        variables.
-      </AlertDescription>
-    </Alert>
-  );
-}
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -66,17 +46,10 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <ErrorBoundary>
-            <Navbar />
-            <ApiKeyWarning />
-            <main className="container mx-auto px-4 py-8">{children}</main>
-          </ErrorBoundary>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <Toaster position="top-center" />
+          {children}
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
