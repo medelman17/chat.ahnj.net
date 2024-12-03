@@ -3,7 +3,7 @@
 import { useChat } from "ai/react";
 import { Message } from "ai";
 import { Input } from "@/components/ui/input";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { toast } from "sonner";
 import { AnimatePresence, motion } from "framer-motion";
 import ReactMarkdown, { Options } from "react-markdown";
@@ -15,6 +15,8 @@ import { cn } from "@/lib/utils";
 export default function Chat() {
   const [toolCall, setToolCall] = useState<string>();
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const [contentHeight, setContentHeight] = useState<number>(0);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
     maxSteps: 4,
@@ -30,6 +32,12 @@ export default function Chat() {
   useEffect(() => {
     if (messages.length > 0) setIsExpanded(true);
   }, [messages]);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      setContentHeight(contentRef.current.scrollHeight);
+    }
+  }, [messages, input]);
 
   const currentToolCall = useMemo(() => {
     const tools = messages?.slice(-1)[0]?.toolInvocations;
@@ -58,7 +66,7 @@ export default function Chat() {
         {/* <ProjectOverview /> */}
         <motion.div
           animate={{
-            minHeight: isExpanded ? 200 : 0,
+            height: isExpanded ? `calc(${contentHeight}px + 24px)` : 0,
             padding: isExpanded ? 12 : 0,
           }}
           transition={{
@@ -67,7 +75,7 @@ export default function Chat() {
           }}
           className={cn("rounded-lg w-full ", isExpanded ? "bg-neutral-200 dark:bg-neutral-800" : "bg-transparent")}
         >
-          <div className="flex flex-col w-full justify-between gap-2">
+          <div ref={contentRef} className="flex flex-col w-full justify-between gap-2">
             <form onSubmit={handleSubmit} className="flex space-x-2">
               <Input
                 className={`bg-neutral-100 text-base w-full text-neutral-700 dark:bg-neutral-700 dark:placeholder:text-neutral-400 dark:text-neutral-300`}
@@ -158,7 +166,7 @@ const AssistantMessage = ({ message }: { message: Message | undefined }) => {
         className="whitespace-pre-wrap font-mono anti text-sm text-neutral-800 dark:text-neutral-200 overflow-hidden"
         id="markdown"
       >
-        <MemoizedReactMarkdown className={"max-h-72 overflow-y-scroll no-scrollbar-gutter"}>
+        <MemoizedReactMarkdown className={"max-h-[80vh] overflow-y-scroll no-scrollbar-gutter"}>
           {message.content}
         </MemoizedReactMarkdown>
       </motion.div>

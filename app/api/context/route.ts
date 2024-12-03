@@ -12,8 +12,6 @@ export async function POST(req: Request) {
       lastMessage.content,
       "",
       10000,
-      0.7,
-      false,
     ) as ScoredPineconeRecord[];
     return NextResponse.json({ context });
   } catch (e) {
