@@ -6,10 +6,12 @@ import {
 } from "@pinecone-database/pinecone";
 
 export type Metadata = {
-  url: string;
+  page_number: number;
+  filename: string;
+  filetype: string;
   text: string;
-  chunk: string;
-  hash: string;
+  languages: string[];
+  type: string;
 };
 
 // The function `getMatchesFromEmbeddings` is used to retrieve matches for the given embeddings
