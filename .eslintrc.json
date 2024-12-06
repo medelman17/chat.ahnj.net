@@ -4,6 +4,7 @@
     "next/typescript"
   ],
   "rules": {
-    "prefer-const": "warn"
+    "prefer-const": "warn",
+    "no-unused-vars": "warn"
   }
 }
