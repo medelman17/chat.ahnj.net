@@ -9,16 +9,16 @@ export async function POST(req: Request) {
   try {
     const { messages } = await req.json();
 
-    console.log(`[api/chat] messages: ${JSON.stringify(messages, null, 2)}`);
+    // console.log(`[api/chat] messages: ${JSON.stringify(messages, null, 2)}`);
 
     // Get the last message
     const lastMessage = messages[messages.length - 1];
 
-    console.log(`[api/chat] lastMessage: ${lastMessage}`);
+    // console.log(`[api/chat] lastMessage: ${lastMessage}`);
 
     const similarQuestions = await understandQuery(lastMessage.content);
 
-    console.log(`[api/chat] similarQuestions: ${similarQuestions}`);
+    // console.log(`[api/chat] similarQuestions: ${similarQuestions}`);
 
     const context = await Promise.all(
       similarQuestions.map(async (question) => await getContext(question, "")),
@@ -45,7 +45,7 @@ export async function POST(req: Request) {
     // // Get the context from the last message
     // const context = await getContext(lastMessage.content, "");
 
-    console.log(`[api/chat] context: ${context}`);
+    // console.log(`[api/chat] context: ${context}`);
 
     // Ask OpenAI for a streaming chat completion given the prompt
     const response = await streamText({
