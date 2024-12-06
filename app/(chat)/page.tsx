@@ -68,16 +68,18 @@ export default function Home() {
 
         <CardFooter className="p-4 pt-2 border-t flex flex-col gap-2">
           <div className="flex gap-2 w-full">
-            <Input
-              value={input}
-              onChange={handleInputChange}
-              placeholder="Ask about the municipal code..."
-              className="flex-1"
-            />
-            <Button type="submit" size="icon" className="shrink-0" disabled={isLoading}>
-              <Send className="h-4 w-4" />
-              <span className="sr-only">Send message</span>
-            </Button>
+            <form onSubmit={handleSubmit} className="flex gap-2 w-full">
+              <Input
+                value={input}
+                onChange={handleInputChange}
+                placeholder="Ask about the municipal code..."
+                className="flex-1"
+              />
+              <Button type="submit" size="icon" className="shrink-0" disabled={isLoading}>
+                <Send className="h-4 w-4" />
+                <span className="sr-only">Send message</span>
+              </Button>
+            </form>
           </div>
           <CardDescription className="text-xs">
             NOT an official website of the{" "}
