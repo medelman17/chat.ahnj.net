@@ -13,7 +13,9 @@ import { toast } from "sonner";
 import { Send } from "lucide-react";
 import Link from "next/link";
 // import { messages as mockMessages } from "@/lib/mocks";
-const initialMessages: Message[] = [];
+import { introMessage } from "@/config/intro-message";
+
+const initialMessages: Message[] = [introMessage];
 
 export default function Home() {
   const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
@@ -39,14 +41,8 @@ export default function Home() {
     <div className="h-dvh w-full p-4 flex items-center justify-center sm:p-4">
       <Card className="w-full h-dvh sm:h-[calc(100dvh-2rem)] sm:max-w-2xl flex flex-col absolute sm:relative inset-0 sm:inset-auto rounded-none sm:rounded-lg">
         <CardHeader className="">
-          <CardTitle>AHNJ Municipal Code Chatbot</CardTitle>
-          <CardDescription className="text-xs">
-            NOT an official website of the{" "}
-            <Link href="https://www.ahnj.org" target="_blank">
-              Borough of Atlantic Highlands, NJ
-            </Link>
-            .
-          </CardDescription>
+          <CardTitle>ahbai</CardTitle>
+          <CardDescription className="text-xs">The unofficial Atlantic Highlands Boro AI.</CardDescription>
         </CardHeader>
         <CardContent className="flex-1 p-4 overflow-hidden">
           <ScrollArea ref={scrollAreaRef} className="h-full pr-4" type="always">

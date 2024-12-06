@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Bot } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { MessageActions } from "./message-actions";
+// import { MessageActions } from "./message-actions";
 
 interface AssistantMessageProps {
   message: Message;
@@ -30,7 +30,7 @@ export function AssistantMessage({ message, isLoading }: AssistantMessageProps) 
             {message.content}
           </ReactMarkdown>
         </div>
-        <MessageActions content={message.content} />
+        {/* <MessageActions content={message.content} /> */}
       </div>
     </div>
   );
