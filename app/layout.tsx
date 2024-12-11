@@ -9,7 +9,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://chat.ahnj.net"),
   title: "ahbai | Atlantic Highlands Boro AI",
-  description: "AI-powered chatbot for municipal code inquiries",
+  description: "The unofficial Atlantic Highlands Boro AI.",
 };
 
 export const viewport = {
