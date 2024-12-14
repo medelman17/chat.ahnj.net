@@ -3,7 +3,7 @@ import { openai } from "@ai-sdk/openai";
 import { getContext } from "@/lib/ai/context";
 import { z } from "zod";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 export async function POST(req: Request) {
   try {
